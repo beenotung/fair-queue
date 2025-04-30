@@ -2,13 +2,9 @@
   "name": "fair-queue",
   "version": "0.0.0",
   "type": "commonjs",
-  "description": "",
+  "description": "A fair, queue-based rate-limiting library for Node.js and browsers that prioritizes users with shorter queues and ensures quick responsiveness for new users under high load.",
   "keywords": [],
-  "author": {
-    "name": "Beeno Tung",
-    "email": "aabbcc1241@yahoo.com.hk",
-    "url": "https://beeno-tung.surge.sh"
-  },
+  "author": "Beeno Tung <aabbcc1241@yahoo.com.hk> (https://beeno-tung.surge.sh)",
   "license": "BSD-2-Clause",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
