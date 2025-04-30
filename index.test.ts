@@ -8,9 +8,11 @@ function mockTime(time: number) {
 let queue = createFairQueue({
   initial_duration: 5 * MINUTE,
   debug: true,
+  mode: 'deterministic',
 })
 
-let zero = Date.now()
+// let zero = Date.now()
+let zero = 0
 
 mockTime(zero + 1 * MINUTE)
 /* user 1 */

@@ -2,6 +2,8 @@ export type FairQueueConfig = {
   /** e.g. 1 year */
   initial_duration: number
   debug?: boolean
+  /** Selection mode: 'randomized' (default) or 'deterministic' */
+  mode?: 'randomized' | 'deterministic'
 }
 
 export function createFairQueue<Task>(
@@ -26,26 +28,29 @@ export class FairQueue<Task> {
   }
 
   dequeue(): Task | null {
+    if (this.config.mode == 'deterministic') {
+      return this.dequeue_deterministic()
+    } else {
+      return this.dequeue_randomized()
+    }
+  }
+
+  dequeue_randomized(): Task | null {
     let now = Date.now()
     let debug = this.config.debug
     if (debug) {
       console.log()
-      console.log('dequeue', { now })
+      console.log('dequeue (randomized)', { now })
     }
     let total_weight = 0
     for (let user_queue of this.user_queues.values()) {
-      let queue_size = user_queue.size
-      if (queue_size == 0) continue
-      let duration = now - user_queue.last_served_at
-      let weight = duration * (1 / queue_size)
-      if (weight == 0) weight = 1
-      user_queue.weight = weight
-      total_weight += weight
+      user_queue.calcWeight(now)
+      total_weight += user_queue.weight
       if (debug) {
         console.log({
           user_id: user_queue.user_id,
-          queue_size,
-          weight,
+          queue_size: user_queue.size,
+          weight: user_queue.weight,
         })
       }
     }
@@ -64,6 +69,40 @@ export class FairQueue<Task> {
     }
     throw new Error('should not reach here')
   }
+
+  dequeue_deterministic(): Task | null {
+    let now = Date.now()
+    let debug = this.config.debug
+    if (debug) {
+      console.log()
+      console.log('dequeue (deterministic)', { now })
+    }
+    let max_weight = 0
+    let max_user_queue: UserQueue<Task> | null = null
+    for (let user_queue of this.user_queues.values()) {
+      user_queue.calcWeight(now)
+      let weight = user_queue.weight
+      if (debug) {
+        console.log({
+          user_id: user_queue.user_id,
+          queue_size: user_queue.size,
+          weight: user_queue.weight,
+        })
+      }
+      if (weight > max_weight) {
+        max_weight = weight
+        max_user_queue = user_queue
+      }
+    }
+    if (debug) {
+      console.log({ max_weight })
+    }
+    if (max_user_queue) {
+      max_user_queue.last_served_at = now
+      return max_user_queue.dequeue()
+    }
+    return null
+  }
 }
 
 class UserQueue<Task> {
@@ -74,6 +113,16 @@ class UserQueue<Task> {
   weight = 0
 
   constructor(public user_id: string | number, public last_served_at: number) {}
+
+  calcWeight(now: number) {
+    let queue_size = this.size
+    if (queue_size == 0) {
+      this.weight = 0
+    } else {
+      let duration = now - this.last_served_at || 1
+      this.weight = duration * (1 / queue_size)
+    }
+  }
 
   enqueue(task: Task) {
     let new_node: Node<Task> = { task, next: null }
