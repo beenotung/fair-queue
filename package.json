@@ -2,7 +2,7 @@
   "name": "fair-queue",
   "version": "1.0.1",
   "type": "commonjs",
-  "description": "A fair, queue-based rate-limiting library for Node.js and browsers that prioritizes users with shorter queues and ensures quick responsiveness for new users under high load.",
+  "description": "A fair, queue-based rate-limiting library with configurable selection modes, balancing queue size and wait time to prioritize task processing.",
   "keywords": [
     "queue",
     "best-effort",

@@ -1,6 +1,6 @@
 # fair-queue
 
-A fair, queue-based rate-limiting library for Node.js and browsers that prioritizes users with shorter queues and ensures quick responsiveness for new users under high load.
+A fair, queue-based rate-limiting library with configurable selection modes, balancing queue size and wait time to prioritize task processing.
 
 [![npm Package Version](https://img.shields.io/npm/v/fair-queue)](https://www.npmjs.com/package/fair-queue)
 [![Minified Package Size](https://img.shields.io/bundlephobia/min/fair-queue)](https://bundlephobia.com/package/fair-queue)
