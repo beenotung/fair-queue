@@ -1,6 +1,6 @@
 {
   "name": "fair-queue",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "commonjs",
   "description": "A fair, queue-based rate-limiting library with configurable selection modes, balancing queue size and wait time to prioritize task processing.",
   "keywords": [
