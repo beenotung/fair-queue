@@ -126,3 +126,14 @@ export class FairQueue<Task> {
   - Randomized mode provides better overall responsiveness by giving all users a chance proportional to their weights
   - Deterministic mode ensures the highest-weighted user always gets served next, useful for strict priority ordering
 - **Abuse Mitigation**: Consider adding request pattern tracking (e.g., by IP) to prevent abuse through multiple small queues
+
+## License
+
+This project is licensed with [BSD-2-Clause](./LICENSE)
+
+This is free, libre, and open-source software. It comes down to four essential freedoms [[ref]](https://seirdy.one/2021/01/27/whatsapp-and-the-domestication-of-users.html#fnref:2):
+
+- The freedom to run the program as you wish, for any purpose
+- The freedom to study how the program works, and change it so it does your computing as you wish
+- The freedom to redistribute copies so you can help others
+- The freedom to distribute copies of your modified versions to others
