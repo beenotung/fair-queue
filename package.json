@@ -5,6 +5,7 @@
   "description": "A fair, queue-based rate-limiting library for Node.js and browsers that prioritizes users with shorter queues and ensures quick responsiveness for new users under high load.",
   "keywords": [
     "queue",
+    "best-effort",
     "fair-queue",
     "rate-limit",
     "rate-limiting",
