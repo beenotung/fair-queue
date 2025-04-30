@@ -10,7 +10,7 @@ A fair, queue-based rate-limiting library for Node.js and browsers that prioriti
 
 - **Fair Queue Prioritization**: Balances queue size and wait time for equitable resource allocation
 - **Dual Selection Modes**:
-  - Randomized mode for better load distribution and responsiveness
+  - Randomized mode for better perceptual responsiveness
   - Deterministic mode for predictable, highest-weight-first selection
 - **New User Responsiveness**: Assigns new users an initial duration boost for quick service under load
 - **FCFS for New Users**: Maintains first-come, first-served ordering for users with equal weights
